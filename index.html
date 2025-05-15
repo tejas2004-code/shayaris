@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shayari Collection</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #d8bfd8;
+            color: #4b0082;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+            padding: 15px;
+        }
+        h1 {
+            color: #ffe135;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            margin: 10px 0;
+        }
+        h1 span {
+            display: inline-block;
+            transition: transform 0.3s, color 0.3s;
+            margin: 0 2px;
+        }
+        /* Touch-friendly hover effects */
+        @media (hover: hover) {
+            h1 span:hover {
+                transform: scale(1.2);
+                color: #ff4500;
+            }
+        }
+        .shayari-box {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin: 15px 0;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            transition: transform 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Touch-friendly hover effects */
+        @media (hover: hover) {
+            .shayari-box:hover {
+                transform: scale(1.05);
+            }
+        }
+        /* Active state for touch devices */
+        .shayari-box:active {
+            transform: scale(1.05);
+        }
+        footer {
+            margin-top: 15px;
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            color: #ffe135;
+        }
+        .flower {
+            position: absolute;
+            top: -10px;
+            font-size: clamp(18px, 4vw, 24px);
+            animation: fall linear infinite;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0px); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        /* Media query for smaller screens */
+        @media screen and (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+            .shayari-box {
+                padding: 12px;
+                margin: 12px 0;
+            }
+        }
+        /* Heart Popper Animation Styles */
+        .heart-popper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: #ff0000;
+            animation: heartPop 1.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes heartPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span>✨Dear</span> <span>Gwen</span> <span>with</span> <span>Cute</span> <span>Braces✨</span>
+        </h1>
+        
+        <div class="shayari-box">
+            <p>"Shikayat bass ek reh jayegi
+               akhiri kuch din aur fir unse mulakat bhi 
+               na hopayegi........
+               milte the roj bass ek najar unhe dekhneko..
+               aab  milna to dur 
+               Bass kuch din aur fir baat bhi 
+               na hopayegi........"</p>
+        </div>
+        
+        <div class="shayari-box">
+            <p>"Aaj unse fir mulakat ho payi thi.......
+               hamne to ji bhar ke nihara unko unke aakho mai roshni si chayi thii....
+               par bass 2 kadam dur hoke bhi baat na ho payi thi....❤"</p>
+        </div>
+        
+        <div class="shayari-box">
+            <p>"Dar hai hi ki kalse unse mulakat na hopayegi...
+               Mulakat to chodo baat bhi na hopayegi....
+               Agar isi bahaane hame apna ishq jata diya to shayad dosti bhi na tik
+               Paayegi 🤌🏻"</p>
+        </div>
+        
+        <footer>
+            <p>Just wanted to express <3 ):</p>
+        </footer>
+    </div>
+    <script>
+        function createFlower() {
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            flower.innerHTML = "🌸";
+            document.body.appendChild(flower);
+            
+            const startPosition = Math.random() * window.innerWidth;
+            flower.style.left = `${startPosition}px`;
+            flower.style.animationDuration = `${5 + Math.random() * 5}s`;
+            
+            setTimeout(() => {
+                flower.remove();
+            }, 10000);
+        }
+        
+        setInterval(createFlower, 2000); // Reduced flower count and slower appearance
+
+        // Heart Popper Animation
+        function createHeartPopper() {
+            const popper = document.createElement('div');
+            popper.className = 'heart-popper';
+            document.body.appendChild(popper);
+
+            const heartCount = 80; // Increased number of hearts
+            const radius = Math.max(window.innerWidth, window.innerHeight) * 0.8; // Dynamic radius based on screen size
+
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                
+                // Random angle and distance
+                const angle = (i / heartCount) * Math.PI * 2;
+                const distance = Math.random() * radius;
+                
+                // Calculate final position
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                // Set custom properties for animation
+                heart.style.setProperty('--tx', `${tx}px`);
+                heart.style.setProperty('--ty', `${ty}px`);
+                
+                // Random delay for each heart
+                heart.style.animationDelay = `${Math.random() * 0.8}s`;
+                
+                popper.appendChild(heart);
+            }
+
+            // Remove the popper after animation
+            setTimeout(() => {
+                popper.remove();
+            }, 3000);
+        }
+
+        // Trigger heart popper when page loads
+        window.addEventListener('load', createHeartPopper);
+    </script>
+</body>
+</html>
